@@ -23,7 +23,6 @@ class VideoEditorPro extends StatelessWidget {
   }
 }
 
-// ========== الواجهة الرئيسية ==========
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -140,7 +139,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-// ========== صفحة التعديل + التصدير الحقي ==========
 class EditScreen extends StatefulWidget {
   final String videoPath;
   EditScreen({required this.videoPath});
@@ -159,14 +157,14 @@ class _EditScreenState extends State<EditScreen> {
     {'icon': Icons.text_fields, 'label': 'نص', 'color': Color(0xFF007AFF)},
     {'icon': Icons.emoji_emotions, 'label': 'ملصقات', 'color': Color(0xFFFF9500)},
     {'icon': Icons.auto_awesome, 'label': 'مؤثرات', 'color': Color(0xFF00D4FF)},
-    {'icon': Icons.layers, 'label': 'PP دمج', 'color': Color(0xFFFF2D55)},
+    {'icon': Icons.layers, 'label': 'دمج', 'color': Color(0xFFFF2D55)},
     {'icon': Icons.filter, 'label': 'فلاتر', 'color': Color(0xFF34C759)},
     {'icon': Icons.translate, 'label': 'ترجمة', 'color': Color(0xFFFFCC00)},
     {'icon': Icons.wallpaper, 'label': 'خلفية', 'color': Color(0xFF5AC8FA)},
     {'icon': Icons.speed, 'label': 'سرعة', 'color': Color(0xFF5856D6)},
     {'icon': Icons.crop, 'label': 'اقتصاص', 'color': Color(0xFF8E8E93)},
-    {'icon': Icons.blur_on, 'label': 'فيفساء', 'color': Color(0xFFC7C7CC)},
-    {'icon': Icons.mic, 'label': 'سجل صوت', 'color': Color(0xFFFF3B30)},
+    {'icon': Icons.blur_on, 'label': 'موزاييك', 'color': Color(0xFFC7C7CC)},
+    {'icon': Icons.mic, 'label': 'سجل صوت', 'color': Color(0xFF3B30)},
     {'icon': Icons.volume_up, 'label': 'حجم الصوت', 'color': Color(0xFF32ADE6)},
     {'icon': Icons.rotate_90_degrees_cw, 'label': 'تدوير', 'color': Color(0xFFFFB700)},
     {'icon': Icons.flip, 'label': 'قلب', 'color': Color(0xFF30D158)},
@@ -181,13 +179,9 @@ class _EditScreenState extends State<EditScreen> {
   Future<void> exportVideo() async {
     _showAd();
     setState(() {exporting = true; progress = 0;});
-
     final dir = await getApplicationDocumentsDirectory();
     final outputPath = '${dir.path}/VideoPro_${DateTime.now().millisecondsSinceEpoch}.mp4';
-
-    // أمر ffmpeg حقي للتصدير
     String command = '-i "${widget.videoPath}" -vcodec libx264 -preset ultrafast -crf 23 -acodec aac "$outputPath"';
-
     await FFmpegKit.executeAsync(command, (session) async {
       final returnCode = await session.getReturnCode();
       setState(() => exporting = false);
@@ -274,13 +268,11 @@ class _EditScreenState extends State<EditScreen> {
   }
 }
 
-// ========== صفحات الـ 16 أداة ==========
 class ToolPage extends StatelessWidget {
   final String title;
   final IconData icon;
   final Color color;
   ToolPage({required this.title, required this.icon, required this.color});
-
   @override
   Widget build(BuildContext context) {
     Map<String, List<String>> allData = {
@@ -294,7 +286,6 @@ class ToolPage extends StatelessWidget {
       'قلب': ['أفقي', 'عمودي'],
     };
     List<String> data = allData[title]?? ['قسم $title'];
-
     return Scaffold(
       backgroundColor: Color(0xFF0A0A0A),
       appBar: AppBar(backgroundColor: Colors.black, title: Text(title, style: GoogleFonts.cairo())),
