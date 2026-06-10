@@ -16,7 +16,6 @@ jobs:
           rm -rf app build.gradle build.gradle.kts settings.gradle settings.gradle.kts gradlew gradle
           mkdir -p app/src/main/java/com/videoeditpro/app
           mkdir -p app/src/main/res/values
-          
           echo "include ':app'" > settings.gradle
 
           cat << 'EOF' > build.gradle
@@ -81,7 +80,6 @@ jobs:
               </application>
           </manifest>
           EOF
-
           gradle wrapper --gradle-version 8.0.2
 
       - name: Build APK
